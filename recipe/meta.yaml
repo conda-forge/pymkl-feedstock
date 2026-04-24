@@ -5,26 +5,28 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/pyMKL/pyMKL-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/p/pyMKL/pyMKL-{{ version }}.tar.gz
   sha256: 5a24f63f510007d908506c88aa5b6b720a0d9201b8222d14805aca1f771b6afa
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
   run:
-    - python
+    - python >={{ python_min }}
     - future
     - numpy >=1.7
     - scipy >=0.13
     - mkl
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - pyMKL
 
